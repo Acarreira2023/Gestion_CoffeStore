@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useIdioma } from "../../context/IdiomaContext";
-import fondoImg from "../../assets/imagenes/Login-Spa.jpg";
+import fondoImg from "../../assets/imagenes/coffestore.jpg";
 import styles from "./Login.module.css";
 
 export default function Login() {

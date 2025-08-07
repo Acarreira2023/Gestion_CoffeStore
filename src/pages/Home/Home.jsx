@@ -13,7 +13,7 @@ export default function Home() {
     <div className={styles.home}>
       <MenuBar />
       <header className={styles.header}>
-        <h1>Gestión de Masajes</h1>
+        <h1>Gestión Coffe Store</h1>
         <p>{t("bienvenido_panel") || "Panel financiero y seguimiento de ingresos y egresos"}</p>
       </header>
       <ResumenEconomico />
