@@ -55,7 +55,7 @@
 .filterGroup input[type="date"] {
   width: 100%;
   max-width: 200px;
-  padding: 0.5rem;
+  padding: 0rem;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
 }
