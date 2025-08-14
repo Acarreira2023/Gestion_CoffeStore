@@ -1,0 +1,150 @@
+/* src/pages/Presupuestos/Presupuestos.module.css */
+
+.container {
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin: 0;
+}
+
+.filtros {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filtroSelect {
+  padding: 0.5rem;
+  border: 1px solid var(--fg);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--fg);
+}
+
+.noData {
+  text-align: center;
+  color: var(--fg);
+  font-style: italic;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--fg);
+}
+
+.table th {
+  background: var(--accent);
+  color: var(--button-text);
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background: var(--hover-bg);
+}
+
+.estado {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.vendido {
+  background: #d1edff;
+  color: #0c5460;
+}
+
+.cancelado {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.convertir,
+.edit,
+.delete {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background-color 0.2s;
+}
+
+.convertir {
+  color: #28a745;
+}
+
+.convertir:hover {
+  background: #d4edda;
+}
+
+.edit {
+  color: var(--accent);
+}
+
+.edit:hover {
+  background: var(--hover-bg);
+}
+
+.delete {
+  color: #dc3545;
+}
+
+.delete:hover {
+  background: #f8d7da;
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

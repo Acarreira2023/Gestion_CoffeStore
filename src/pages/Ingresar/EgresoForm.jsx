@@ -5,11 +5,13 @@ import { Timestamp } from "firebase/firestore";
 import styles from "./EgresoForm.module.css";
 import { guardarEgreso } from "../../services/firebaseService";
 import {
-  tiposEgreso,
-  sucursales,
-  inmuebles,
+  tiposGasto,
   mediosEgreso,
-  categoriasEgreso
+  categoriasEgreso,
+  items,
+  marcasModelos,
+  elementosEspeciales,
+  proveedores
 } from "../../utils/listados";
 import { useIdioma } from "../../context/IdiomaContext";
 
@@ -17,15 +19,16 @@ export default function EgresoForm({ onBack }) {
   const { t } = useIdioma();
   const [f, setF] = useState({
     fecha: "",
-    tipo: "",
-    inmueble: "",
-    sucursal: "",
+    tipoGasto: "",
+    item: "",
+    marcaModelo: "",
+    elementosEspeciales: "",
+    proveedor: "",
     medioPago: "",
     categoria: "",
     cantidad: 1,
     numeroDoc: "",
     descripcion: "",
-    proveedor: "",
     total: 0
   });
 
@@ -37,9 +40,6 @@ export default function EgresoForm({ onBack }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { ...f };
-
-    if (data.tipo !== "INMUEBLE") data.inmueble = "";
-    if (data.tipo !== "SUCURSALES") data.sucursal = "";
 
     // Fecha a medianoche local
     const [year, month, day] = data.fecha.split("-").map(Number);
@@ -74,60 +74,94 @@ export default function EgresoForm({ onBack }) {
 
       {/* Tipo */}
       <div className={styles.field}>
-        <label htmlFor="tipo">{t("tipo")}</label>
+        <label htmlFor="tipoGasto">{t("tipos_gasto")}</label>
         <select
-          id="tipo"
-          name="tipo"
-          value={f.tipo}
+          id="tipoGasto"
+          name="tipoGasto"
+          value={f.tipoGasto}
           onChange={handleChange}
           required
         >
           <option value="">{t("seleccionar_tipo")}</option>
-          {tiposEgreso.map((opt) => (
+          {tiposGasto.map((opt) => (
             <option key={opt} value={opt}>
-              {t(opt)}
+              {t(opt.toLowerCase())}
             </option>
           ))}
         </select>
       </div>
 
-      {/* Inmueble / Sucursal */}
-      {f.tipo === "INMUEBLE" && (
-        <div className={styles.field}>
-          <label htmlFor="inmueble">{t("inmueble")}</label>
-          <select
-            id="inmueble"
-            name="inmueble"
-            value={f.inmueble}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_inmueble")}</option>
-            {inmuebles.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {f.tipo === "SUCURSALES" && (
-        <div className={styles.field}>
-          <label htmlFor="sucursal">{t("sucursal")}</label>
-          <select
-            id="sucursal"
-            name="sucursal"
-            value={f.sucursal}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_sucursal")}</option>
-            {sucursales.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+      {/* Item */}
+      <div className={styles.field}>
+        <label htmlFor="item">{t("items")}</label>
+        <select
+          id="item"
+          name="item"
+          value={f.item}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {items.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Marca Modelo */}
+      <div className={styles.field}>
+        <label htmlFor="marcaModelo">{t("marca_modelo")}</label>
+        <select
+          id="marcaModelo"
+          name="marcaModelo"
+          value={f.marcaModelo}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {marcasModelos.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Elementos Especiales */}
+      <div className={styles.field}>
+        <label htmlFor="elementosEspeciales">{t("elementos_especiales")}</label>
+        <select
+          id="elementosEspeciales"
+          name="elementosEspeciales"
+          value={f.elementosEspeciales}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {elementosEspeciales.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Proveedor */}
+      <div className={styles.field}>
+        <label htmlFor="proveedor">{t("proveedor")}</label>
+        <select
+          id="proveedor"
+          name="proveedor"
+          value={f.proveedor}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {proveedores.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Medio de pago */}
       <div className={styles.field}>
@@ -176,18 +210,6 @@ export default function EgresoForm({ onBack }) {
           value={f.cantidad}
           onChange={handleChange}
           required
-        />
-      </div>
-
-      {/* Proveedor */}
-      <div className={styles.field}>
-        <label htmlFor="proveedor">{t("proveedor")}</label>
-        <input
-          type="text"
-          id="proveedor"
-          name="proveedor"
-          value={f.proveedor}
-          onChange={handleChange}
         />
       </div>
 

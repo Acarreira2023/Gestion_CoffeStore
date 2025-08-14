@@ -1,0 +1,111 @@
+/* src/pages/ResumenPresupuestos/ResumenPresupuestos.module.css */
+
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--fg);
+}
+
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.metrica {
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.metrica:hover {
+  transform: translateY(-2px);
+}
+
+.metricaIcon {
+  font-size: 2rem;
+  color: var(--accent);
+  min-width: 60px;
+  text-align: center;
+}
+
+.metricaContent {
+  flex: 1;
+}
+
+.metricaContent h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--fg);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metricaValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin: 0;
+  line-height: 1;
+}
+
+.metricaSubtitle {
+  font-size: 0.8rem;
+  color: var(--fg);
+  opacity: 0.7;
+}
+
+.graficos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.grafico {
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.grafico h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--fg);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .metricas {
+    grid-template-columns: 1fr;
+  }
+
+  .graficos {
+    grid-template-columns: 1fr;
+  }
+
+  .metrica {
+    padding: 1rem;
+  }
+
+  .metricaValue {
+    font-size: 1.5rem;
+  }
+}

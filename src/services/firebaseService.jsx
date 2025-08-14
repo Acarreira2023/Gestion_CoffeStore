@@ -111,4 +111,45 @@ export const borrarEgreso = async (id) => {
   }
 };
 
+// ---------- PRESUPUESTOS ----------
+
+export const guardarPresupuesto = async (data) => {
+  try {
+    const payload = { ...data, fecha: normalizeFecha(data.fecha) };
+    await addDoc(collection(db, "presupuestos"), payload);
+    return { success: true };
+  } catch (error) {
+    console.error("Error al guardar presupuesto:", error);
+    return { success: false, error };
+  }
+};
+
+export const obtenerPresupuestos = async () => {
+  const snap = await getDocs(collection(db, "presupuestos"));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+};
+
+export const subirPresupuestos = async (datos) => {
+  const batch = writeBatch(db);
+  const col = collection(db, "presupuestos");
+  datos.forEach(item => {
+    const ref = doc(col);
+    batch.set(ref, {
+      ...item,
+      fecha: normalizeFecha(item.fecha)
+    });
+  });
+  await batch.commit();
+};
+
+export const borrarPresupuesto = async (id) => {
+  try {
+    await deleteDoc(doc(db, "presupuestos", id));
+    return { success: true };
+  } catch (error) {
+    console.error("Error al borrar presupuesto:", error);
+    return { success: false, error };
+  }
+};
+
 export { app, db, auth };

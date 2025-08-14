@@ -1,0 +1,126 @@
+/* src/pages/Ingresar/PresupuestoForm.module.css */
+
+.formulario {
+  max-width: 800px;
+  margin: auto;
+  padding: 1.5rem;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.formulario h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+}
+
+.clienteSection,
+.productoSection {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--fg);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.clienteSection h3,
+.productoSection h3 {
+  margin: 0 0 1rem 0;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fieldRow .field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.field label {
+  margin-bottom: 0.3rem;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--fg);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 1rem;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.guardar {
+  flex: 1;
+  padding: 0.75rem;
+  background: var(--accent);
+  color: var(--button-text);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.guardar:hover {
+  background: var(--accent-hover);
+}
+
+.volver {
+  flex: 1;
+  padding: 0.75rem;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.volver:hover {
+  background: var(--hover-bg);
+}
+
+@media (max-width: 768px) {
+  .fieldRow {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .fieldRow .field {
+    margin-bottom: 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}

@@ -86,26 +86,69 @@ export async function exportEgresos() {
     const fecha = d.fecha?.toDate?.().toISOString().slice(0, 10) || "";
     return {
       Fecha:        fecha,
-      Tipo:         d.tipo         || "",
-      Inmuebles:    d.inmuebles    || "",
-      Sucursales:   d.sucursales   || "",
+      "Tipo Gasto": d.tipoGasto    || "",
+      Item:         d.item         || "",
+      "Marca/Modelo": d.marcaModelo || "",
+      "Elementos Especiales": d.elementosEspeciales || "",
+      Proveedor:    d.proveedor    || "",
       "Medio Pago": d.medioPago    || "",
       Categoría:    d.categoria    || "",
       "Nro. Doc":   d.nroDoc       || "",
       Descripción:  d.descripcion  || "",
-      Proveedor:    d.proveedor    || "",
       Total:        d.total        || 0
     };
   });
 
   const header = [
-    "Fecha", "Tipo", "Inmuebles", "Sucursales", "Medio Pago",
-    "Categoría", "Nro. Doc", "Descripción", "Proveedor", "Total"
+    "Fecha", "Tipo Gasto", "Item", "Marca/Modelo", "Elementos Especiales", 
+    "Proveedor", "Medio Pago", "Categoría", "Nro. Doc", "Descripción", "Total"
   ];
 
   await exportToExcel({
     nombreArchivo: "egresos",
     nombreHoja: "Egresos",
+    header,
+    rows: data
+  });
+}
+
+/**
+ * Exporta la colección "presupuestos"
+ */
+export async function exportPresupuestos() {
+  const snap = await getDocs(collection(db, "presupuestos"));
+
+  const data = snap.docs.map(docSnap => {
+    const d = docSnap.data();
+    const fecha = d.fecha?.toDate?.().toISOString().slice(0, 10) || "";
+    const fechaVenta = d.fechaVenta?.toDate?.().toISOString().slice(0, 10) || "";
+    return {
+      Fecha:        fecha,
+      Cliente:      d.cliente      || "",
+      Teléfono:     d.telefono     || "",
+      Email:        d.email        || "",
+      Item:         d.item         || "",
+      "Marca/Modelo": d.marcaModelo || "",
+      "Elementos Especiales": d.elementosEspeciales || "",
+      Proveedor:    d.proveedor    || "",
+      Cantidad:     d.cantidad     || 0,
+      Total:        d.total        || 0,
+      Estado:       d.estado       || "",
+      "Fecha Venta": fechaVenta,
+      Descripción:  d.descripcion  || "",
+      Observaciones: d.observaciones || ""
+    };
+  });
+
+  const header = [
+    "Fecha", "Cliente", "Teléfono", "Email", "Item", "Marca/Modelo", 
+    "Elementos Especiales", "Proveedor", "Cantidad", "Total", "Estado", 
+    "Fecha Venta", "Descripción", "Observaciones"
+  ];
+
+  await exportToExcel({
+    nombreArchivo: "presupuestos",
+    nombreHoja: "Presupuestos",
     header,
     rows: data
   });

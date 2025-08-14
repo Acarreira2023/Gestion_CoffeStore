@@ -1,65 +1,94 @@
-// src/utils/listado.jsx
+// src/utils/listados.jsx
+
+export const items = [
+  "CAFE_GRANO",
+  "CAFE_MOLIDO", 
+  "CAFE_INSTANTANEO",
+  "ACCESORIOS_CAFE",
+  "MAQUINARIA",
+  "INSUMOS",
+  "OTROS"
+];
+
+export const tiposGasto = [
+  "COMPRA_PRODUCTO",
+  "MANTENIMIENTO",
+  "MARKETING",
+  "OPERATIVO",
+  "ADMINISTRATIVO",
+  "OTROS"
+];
+
+export const marcasModelos = [
+  "NESPRESSO_VERTUO",
+  "DELONGHI_MAGNIFICA",
+  "BREVILLE_BARISTA",
+  "PHILIPS_SENSEO",
+  "KEURIG_K_ELITE",
+  "OTROS"
+];
+
+export const elementosEspeciales = [
+  "FILTRO_AGUA",
+  "MOLINILLO_INTEGRADO",
+  "VAPORIZADOR_LECHE",
+  "PANTALLA_DIGITAL",
+  "PROGRAMACION_AUTOMATICA",
+  "NINGUNO"
+];
+
+export const proveedores = [
+  "PROVEEDOR_A",
+  "PROVEEDOR_B",
+  "PROVEEDOR_C",
+  "DISTRIBUIDOR_LOCAL",
+  "IMPORTADOR_DIRECTO",
+  "OTROS"
+];
 
 export const tiposIngreso = [
-  "INMUEBLE",
-  "VEHICULO",
-  "SUCURSALES",
-  "INVERSIONES",
-  "NORMA - MASAJES",
+  "VENTA_PRODUCTO",
+  "SERVICIO_TECNICO",
+  "ALQUILER_EQUIPOS",
   "OTROS"
 ];
-export const inmuebles = [
-  "DPTO CIUDAD DE LA PAZ",
-  "DPTO CORRIENTES",
-  "DPTO CONESA I",
-  "DPTO CONESA II"
-];
-export const sucursales = [
-  "PRANA",
-  "EQUILIBRIO",
-  "FOUR SEASONS",
-  "MASAJES EN DOMICILIO",
-  "MASAJES A DOMICILIO"
-];
+
 export const mediosIngreso = [
   "EFECTIVO",
-  "CHEQUE",
-  "TARJETA DE CREDITO",
-  "TARJETA DE DEBITO",
-  "BILLETERA VIRTUAL",
+  "TARJETA_CREDITO",
+  "TARJETA_DEBITO",
   "TRANSFERENCIA",
-  "ACREDITACION",
+  "BILLETERA_VIRTUAL",
   "OTROS"
 ];
+
 export const categoriasIngreso = [
+  "VENTA",
   "SERVICIO",
   "ALQUILER",
-  "INVERSIONES",
   "OTROS"
 ];
 
 export const tiposEgreso = [
-  "INMUEBLE",
-  "VEHICULO",
-  "SUCURSALES",
-  "JUBILACION",
+  "COMPRA_INVENTARIO",
+  "GASTOS_OPERATIVOS",
+  "MARKETING",
+  "MANTENIMIENTO",
   "OTROS"
 ];
+
 export const mediosEgreso = [
   "EFECTIVO",
-  "CHEQUE",
-  "TARJETA DE CREDITO",
-  "TARJETA DE DEBITO",
-  "BILLETERA VIRTUAL",
+  "TARJETA_CREDITO",
+  "TARJETA_DEBITO",
   "TRANSFERENCIA",
   "OTROS"
 ];
+
 export const categoriasEgreso = [
-  "SERVICIO",
-  "SUELDOS",
-  "PRODUCTOS DE LIMPIEZA",
-  "PRODUCTOS DE MASAJE",
-  "VEHÍCULO",
-  "SEGUROS",
+  "COMPRAS",
+  "GASTOS_OPERATIVOS",
+  "MARKETING",
+  "MANTENIMIENTO",
   "OTROS"
 ];

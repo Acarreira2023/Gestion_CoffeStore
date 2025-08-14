@@ -1,62 +1,77 @@
-
 {
+  "items": [
+    { "value": "CAFE_GRANO", "labelKey": "cafe_grano" },
+    { "value": "CAFE_MOLIDO", "labelKey": "cafe_molido" },
+    { "value": "CAFE_INSTANTANEO", "labelKey": "cafe_instantaneo" },
+    { "value": "ACCESORIOS_CAFE", "labelKey": "accesorios_cafe" },
+    { "value": "MAQUINARIA", "labelKey": "maquinaria" },
+    { "value": "INSUMOS", "labelKey": "insumos" },
+    { "value": "OTROS", "labelKey": "otros" }
+  ],
+  "tiposGasto": [
+    { "value": "COMPRA_PRODUCTO", "labelKey": "compra_producto" },
+    { "value": "MANTENIMIENTO", "labelKey": "mantenimiento" },
+    { "value": "MARKETING", "labelKey": "marketing" },
+    { "value": "OPERATIVO", "labelKey": "operativo" },
+    { "value": "ADMINISTRATIVO", "labelKey": "administrativo" },
+    { "value": "OTROS", "labelKey": "otros" }
+  ],
+  "marcasModelos": [
+    { "value": "NESPRESSO_VERTUO", "labelKey": "nespresso_vertuo" },
+    { "value": "DELONGHI_MAGNIFICA", "labelKey": "delonghi_magnifica" },
+    { "value": "BREVILLE_BARISTA", "labelKey": "breville_barista" },
+    { "value": "PHILIPS_SENSEO", "labelKey": "philips_senseo" },
+    { "value": "KEURIG_K_ELITE", "labelKey": "keurig_k_elite" },
+    { "value": "OTROS", "labelKey": "otros" }
+  ],
+  "elementosEspeciales": [
+    { "value": "FILTRO_AGUA", "labelKey": "filtro_agua" },
+    { "value": "MOLINILLO_INTEGRADO", "labelKey": "molinillo_integrado" },
+    { "value": "VAPORIZADOR_LECHE", "labelKey": "vaporizador_leche" },
+    { "value": "PANTALLA_DIGITAL", "labelKey": "pantalla_digital" },
+    { "value": "PROGRAMACION_AUTOMATICA", "labelKey": "programacion_automatica" },
+    { "value": "NINGUNO", "labelKey": "ninguno" }
+  ],
+  "proveedores": [
+    { "value": "PROVEEDOR_A", "labelKey": "proveedor_a" },
+    { "value": "PROVEEDOR_B", "labelKey": "proveedor_b" },
+    { "value": "PROVEEDOR_C", "labelKey": "proveedor_c" },
+    { "value": "DISTRIBUIDOR_LOCAL", "labelKey": "distribuidor_local" },
+    { "value": "IMPORTADOR_DIRECTO", "labelKey": "importador_directo" },
+    { "value": "OTROS", "labelKey": "otros" }
+  ],
   "tiposIngreso": [
-    { "value": "INMUEBLE",        "labelKey": "inmueble" },
-    { "value": "VEHICULO",        "labelKey": "vehiculo" },
-    { "value": "SUCURSALES",      "labelKey": "sucursales" },
-    { "value": "INVERSIONES",     "labelKey": "inversiones" },
-    { "value": "NORMA_MASAJES",   "labelKey": "norma_masajes" },
-    { "value": "OTROS",           "labelKey": "otros" }
-  ],
-  "inmuebles": [
-    { "value": "DPTO_CIUDAD_DE_LA_PAZ", "labelKey": "ciudad_de_la_paz" },
-    { "value": "DPTO_CORRIENTES",        "labelKey": "corrientes" },
-    { "value": "DPTO_CONESA_I",          "labelKey": "conesa_i" },
-    { "value": "DPTO_CONESA_II",         "labelKey": "conesa_ii" }
-  ],
-  "sucursales": [
-    { "value": "PRANA",                "labelKey": "prana" },
-    { "value": "EQUILIBRIO",           "labelKey": "equilibrio" },
-    { "value": "FOUR_SEASONS",         "labelKey": "four_seasons" },
-    { "value": "MASAJES_EN_DOMICILIO", "labelKey": "masajes_en_domicilio" },
-    { "value": "MASAJES_A_DOMICILIO",  "labelKey": "masajes_a_domicilio" }
+    { "value": "VENTA_PRODUCTO", "labelKey": "venta_producto" },
+    { "value": "SERVICIO_TECNICO", "labelKey": "servicio_tecnico" },
+    { "value": "ALQUILER_EQUIPOS", "labelKey": "alquiler_equipos" },
+    { "value": "OTROS", "labelKey": "otros" }
   ],
   "mediosIngreso": [
-    { "value": "EFECTIVO",          "labelKey": "efectivo" },
-    { "value": "CHEQUE",            "labelKey": "cheque" },
-    { "value": "TARJETA_CREDITO",   "labelKey": "tarjeta_credito" },
-    { "value": "TARJETA_DEBITO",    "labelKey": "tarjeta_debito" },
+    { "value": "EFECTIVO", "labelKey": "efectivo" },
+    { "value": "TARJETA_CREDITO", "labelKey": "tarjeta_credito" },
+    { "value": "TARJETA_DEBITO", "labelKey": "tarjeta_debito" },
+    { "value": "TRANSFERENCIA", "labelKey": "transferencia" },
     { "value": "BILLETERA_VIRTUAL", "labelKey": "billetera_virtual" },
-    { "value": "TRANSFERENCIA",     "labelKey": "transferencia" },
-    { "value": "ACREDITACION",      "labelKey": "acreditacion" },
-    { "value": "OTROS",             "labelKey": "otros" }
+    { "value": "OTROS", "labelKey": "otros" }
   ],
   "categoriasIngreso": [
-    { "value": "SERVICIO",    "labelKey": "servicio" },
-    { "value": "ALQUILER",    "labelKey": "alquiler" },
-    { "value": "INVERSIONES", "labelKey": "inversiones" },
-    { "value": "OTROS",       "labelKey": "otros" }
-  ],
-  "tiposEgreso": [
-    { "value": "INMUEBLE",   "labelKey": "inmueble" },
-    { "value": "VEHICULO",   "labelKey": "vehiculo" },
-    { "value": "SUCURSALES", "labelKey": "sucursales" },
-    { "value": "JUBILACION", "labelKey": "jubilacion" },
-    { "value": "OTROS",      "labelKey": "otros" }
+    { "value": "VENTA", "labelKey": "venta" },
+    { "value": "SERVICIO", "labelKey": "servicio" },
+    { "value": "ALQUILER", "labelKey": "alquiler" },
+    { "value": "OTROS", "labelKey": "otros" }
   ],
   "mediosEgreso": [
-    { "value": "EFECTIVO",        "labelKey": "efectivo" },
-    { "value": "CHEQUE",          "labelKey": "cheque" },
+    { "value": "EFECTIVO", "labelKey": "efectivo" },
     { "value": "TARJETA_CREDITO", "labelKey": "tarjeta_credito" },
-    { "value": "TARJETA_DEBITO",  "labelKey": "tarjeta_debito" },
-    { "value": "TRANSFERENCIA",   "labelKey": "transferencia" },
-    { "value": "OTROS",           "labelKey": "otros" }
+    { "value": "TARJETA_DEBITO", "labelKey": "tarjeta_debito" },
+    { "value": "TRANSFERENCIA", "labelKey": "transferencia" },
+    { "value": "OTROS", "labelKey": "otros" }
   ],
   "categoriasEgreso": [
-    { "value": "SUELDOS",        "labelKey": "sueldos" },
-    { "value": "PRODUCTOS",      "labelKey": "productos" },
-    { "value": "MANTENIMIENTO",  "labelKey": "mantenimiento" },
-    { "value": "PUBLICIDAD",     "labelKey": "publicidad" },
-    { "value": "OTROS",          "labelKey": "otros" }
+    { "value": "COMPRAS", "labelKey": "compras" },
+    { "value": "GASTOS_OPERATIVOS", "labelKey": "gastos_operativos" },
+    { "value": "MARKETING", "labelKey": "marketing" },
+    { "value": "MANTENIMIENTO", "labelKey": "mantenimiento" },
+    { "value": "OTROS", "labelKey": "otros" }
   ]
 }

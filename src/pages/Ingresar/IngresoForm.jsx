@@ -6,10 +6,12 @@ import styles from "./IngresoForm.module.css";
 import { guardarIngreso } from "../../services/firebaseService";
 import {
   tiposIngreso,
-  sucursales,
-  inmuebles,
   mediosIngreso,
-  categoriasIngreso
+  categoriasIngreso,
+  items,
+  marcasModelos,
+  elementosEspeciales,
+  proveedores
 } from "../../utils/listados";
 import { useIdioma } from "../../context/IdiomaContext";
 
@@ -18,8 +20,10 @@ export default function IngresoForm({ onBack }) {
   const [f, setF] = useState({
     fecha: "",
     tipo: "",
-    inmueble: "",
-    sucursal: "",
+    item: "",
+    marcaModelo: "",
+    elementosEspeciales: "",
+    proveedor: "",
     medio: "",
     categoria: "",
     cantidad: 1,
@@ -36,9 +40,6 @@ export default function IngresoForm({ onBack }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { ...f };
-
-    if (data.tipo !== "INMUEBLE") data.inmueble = "";
-    if (data.tipo !== "SUCURSALES") data.sucursal = "";
 
     // Parsear fecha a medianoche local (UTC−3)
     const [year, month, day] = data.fecha.split("-").map(Number);
@@ -91,42 +92,77 @@ export default function IngresoForm({ onBack }) {
         </select>
       </div>
 
-      {f.tipo === "INMUEBLE" && (
-        <div className={styles.field}>
-          <label htmlFor="inmueble">{t("inmueble")}</label>
-          <select
-            id="inmueble"
-            name="inmueble"
-            value={f.inmueble}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_inmueble")}</option>
-            {inmuebles.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {f.tipo === "SUCURSALES" && (
-        <div className={styles.field}>
-          <label htmlFor="sucursal">{t("sucursal")}</label>
-          <select
-            id="sucursal"
-            name="sucursal"
-            value={f.sucursal}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_sucursal")}</option>
-            {sucursales.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+      {/* Item */}
+      <div className={styles.field}>
+        <label htmlFor="item">{t("items")}</label>
+        <select
+          id="item"
+          name="item"
+          value={f.item}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {items.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Marca Modelo */}
+      <div className={styles.field}>
+        <label htmlFor="marcaModelo">{t("marca_modelo")}</label>
+        <select
+          id="marcaModelo"
+          name="marcaModelo"
+          value={f.marcaModelo}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {marcasModelos.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Elementos Especiales */}
+      <div className={styles.field}>
+        <label htmlFor="elementosEspeciales">{t("elementos_especiales")}</label>
+        <select
+          id="elementosEspeciales"
+          name="elementosEspeciales"
+          value={f.elementosEspeciales}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {elementosEspeciales.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Proveedor */}
+      <div className={styles.field}>
+        <label htmlFor="proveedor">{t("proveedor")}</label>
+        <select
+          id="proveedor"
+          name="proveedor"
+          value={f.proveedor}
+          onChange={handleChange}
+        >
+          <option value="">{t("seleccionar")}</option>
+          {proveedores.map((opt) => (
+            <option key={opt} value={opt}>
+              {t(opt.toLowerCase())}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Medio de pago */}
       <div className={styles.field}>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIdioma } from "../../context/IdiomaContext";
-import { exportIngresos, exportEgresos } from "../../services/exportService";
+import { exportIngresos, exportEgresos, exportPresupuestos } from "../../services/exportService";
 import styles from "../exportService/exportService.module.css";
 
 export default function ExportService() {
@@ -17,6 +17,10 @@ export default function ExportService() {
         <div className={styles.card} onClick={exportEgresos}>
           <span className={styles.icon}>📉</span>
           <h3>{t("datos_egresos")}</h3>
+        </div>
+        <div className={styles.card} onClick={exportPresupuestos}>
+          <span className={styles.icon}>📋</span>
+          <h3>{t("presupuestos")}</h3>
         </div>
       </div>
     </div>

@@ -43,7 +43,9 @@ export default function Graficos1() {
   const {
     byDate,
     ingresosByTipo,
+    ingresosByItem,
     egresosByTipo,
+    egresosByItem,
     ingresosByCategoria,
     egresosByCategoria,
     loading
@@ -76,7 +78,7 @@ export default function Graficos1() {
   ], [totalI, totalE, utilidad, indice, margen, t]);
 
   // pies
-  const [groupBy, setGroupBy] = useState("categoria");
+  const [groupBy, setGroupBy] = useState("item");
 
   // barData con fechas crudas (sin formatear) para clave/orden
   const barData = useMemo(
@@ -119,8 +121,10 @@ export default function Graficos1() {
     return <p className={styles.loading}>{t("cargando")}…</p>;
   }
 
-  const ingresosPie = groupBy === "categoria" ? ingresosByCategoria : ingresosByTipo;
-  const egresosPie  = groupBy === "categoria" ? egresosByCategoria  : egresosByTipo;
+  const ingresosPie = groupBy === "categoria" ? ingresosByCategoria : 
+                      groupBy === "item" ? ingresosByItem : ingresosByTipo;
+  const egresosPie  = groupBy === "categoria" ? egresosByCategoria : 
+                      groupBy === "item" ? egresosByItem : egresosByTipo;
 
   return (
     <div className={styles.container}>
@@ -229,12 +233,15 @@ export default function Graficos1() {
       {/* TOGGLE TORTAS */}
       <div className={styles.toggleContainer}>
         <button
-          onClick={() => setGroupBy(g => g === "categoria" ? "tipo" : "categoria")}
+          onClick={() => setGroupBy(g => 
+            g === "categoria" ? "item" : 
+            g === "item" ? "tipo" : "categoria"
+          )}
           className={styles.toggleButton}
         >
-          {groupBy === "categoria"
-            ? t("agrupado_por_tipo")
-            : t("agrupado_por_categoria")}
+          {groupBy === "categoria" ? t("agrupado_por_item") :
+           groupBy === "item" ? t("agrupado_por_tipo") :
+           t("agrupado_por_categoria")}
         </button>
       </div>
 
@@ -243,7 +250,8 @@ export default function Graficos1() {
         <div className={`${styles.pieBlock} ${styles.pieIngresos}`}>
           <h5>
             {t("ingresos_por")}&nbsp;
-            {groupBy === "categoria" ? t("categoria") : t("tipo")}
+            {groupBy === "categoria" ? t("categoria") : 
+             groupBy === "item" ? t("items") : t("tipo")}
           </h5>
           <div className={styles.pieWrapper}>
             <PieChartComponent data={ingresosPie} />
@@ -252,7 +260,8 @@ export default function Graficos1() {
         <div className={`${styles.pieBlock} ${styles.pieEgresos}`}>
           <h5>
             {t("egresos_por")}&nbsp;
-            {groupBy === "categoria" ? t("categoria") : t("tipo")}
+            {groupBy === "categoria" ? t("categoria") : 
+             groupBy === "item" ? t("items") : t("tipo")}
           </h5>
           <div className={styles.pieWrapper}>
             <PieChartComponent data={egresosPie} />

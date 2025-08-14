@@ -22,6 +22,8 @@ export default function MenuBar() {
     { to: "/ingreso",       text: t("ingreso") },
     { to: "/egreso",        text: t("egreso") },
     { to: "/ingresar",      text: t("ingresar") },
+    { to: "/presupuestos",  text: t("presupuestos") },
+    { to: "/resumen-presupuestos", text: t("resumen_presupuestos") },
     { to: "/exportar",     text: t("exportar") },
     { to: "/configuracion", text: t("configuracion") }
   ];

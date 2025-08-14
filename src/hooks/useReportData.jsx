@@ -6,8 +6,9 @@ import { useEgresosRealtime }  from "./useEgresosRealtime";
 import { toDate, esMismoDia, esMismoMes, addDays } from "../utils/dateUtils";
 import {
   tiposIngreso,
+  items,
   categoriasIngreso,
-  tiposEgreso,
+  tiposGasto,
   categoriasEgreso
 } from "../utils/listados";
 
@@ -98,16 +99,20 @@ export function useReportData(params = {}) {
         .filter(x => x.value > 0);
 
     const ingresosByTipo      = mkPie(filtI, tiposIngreso,      "tipo");
+    const ingresosByItem      = mkPie(filtI, items,            "item");
     const ingresosByCategoria = mkPie(filtI, categoriasIngreso, "categoria");
-    const egresosByTipo       = mkPie(filtE, tiposEgreso,       "tipo");
+    const egresosByTipo       = mkPie(filtE, tiposGasto,       "tipoGasto");
+    const egresosByItem       = mkPie(filtE, items,            "item");
     const egresosByCategoria  = mkPie(filtE, categoriasEgreso,  "categoria");
 
     return {
       loading,
       byDate,
       ingresosByTipo,
+      ingresosByItem,
       ingresosByCategoria,
       egresosByTipo,
+      egresosByItem,
       egresosByCategoria
     };
   }, [ingresos, egresos, params.fecha, params.from, params.to, loading]);

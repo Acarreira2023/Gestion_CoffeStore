@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useIdioma } from "../../context/IdiomaContext";
 import IngresoForm   from "./IngresoForm";
 import EgresoForm    from "./EgresoForm";
+import PresupuestoForm from "./PresupuestoForm";
 import FileImporter  from "./FileImporter";
 import styles        from "./Ingresar.module.css";
 
@@ -10,7 +11,7 @@ export default function Ingresar() {
   const { t } = useIdioma();
   const [step, setStep] = useState(1);
   const [modo, setModo] = useState(null);   // "manual" | "import"
-  const [tipo, setTipo] = useState(null);   // "ingreso" | "egreso"
+  const [tipo, setTipo] = useState(null);   // "ingreso" | "egreso" | "presupuesto"
 
   const reset = () => {
     setStep(1);
@@ -70,6 +71,15 @@ export default function Ingresar() {
               {manual ? t("formulario_egreso") : t("archivo_egreso")}
             </h3>
           </div>
+          {manual && (
+            <div
+              className={styles.card}
+              onClick={() => { setTipo("presupuesto"); setStep(3); }}
+            >
+              <span className={styles.icon}>📋</span>
+              <h3>{t("formulario_presupuesto")}</h3>
+            </div>
+          )}
         </div>
         <button className={styles.back} onClick={reset}>
           {t("volver")}
@@ -84,6 +94,8 @@ export default function Ingresar() {
       {modo === "manual" ? (
         tipo === "ingreso" ? (
           <IngresoForm onBack={() => setStep(2)} />
+        ) : tipo === "presupuesto" ? (
+          <PresupuestoForm onBack={() => setStep(2)} />
         ) : (
           <EgresoForm  onBack={() => setStep(2)} />
         )
