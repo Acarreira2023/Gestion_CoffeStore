@@ -34,13 +34,13 @@ export default function PieChartComponent({ title, data }) {
             nameKey="name"
             innerRadius={50}
             outerRadius={80}
-            label
+            label={({ value }) => `$${value.toLocaleString("es-AR")}`}
           >
             {data.map((_, idx) => (
               <Cell key={`cell-${idx}`} fill={COLORES[idx % COLORES.length]} />
             ))}
           </Pie>
-          <Tooltip formatter={value => new Intl.NumberFormat().format(value)} />
+          <Tooltip formatter={value => `$${value.toLocaleString("es-AR")}`} />
           <Legend layout="vertical" align="right" />
         </PieChart>
       </ResponsiveContainer>

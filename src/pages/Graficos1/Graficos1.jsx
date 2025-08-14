@@ -6,13 +6,26 @@ import BarComparativo from "../../components/charts/BarComparativo";
 import PieChartComponent from "../../components/charts/PieChart";
 import styles from "./Graficos1.module.css";
 
-// formatea ISO → "dd-mm-aaaa"
-const formatDDMMYYYY = iso => {
-  const d = new Date(iso);
-  const day   = String(d.getDate()).padStart(2, "0");
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const year  = d.getFullYear();
-  return `${day}-${month}-${year}`;
+// formatea a "dd-mm-aaaa" sin problemas de zona horaria
+const formatDDMMYYYY = v => {
+  if (typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
+    const [y, m, d] = v.split("-");
+    return `${d}-${m}-${y}`;
+  }
+  if (typeof v === "number") {
+    const d = new Date(v);
+    const day   = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year  = d.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+  if (v instanceof Date) {
+    const day   = String(v.getDate()).padStart(2, "0");
+    const month = String(v.getMonth() + 1).padStart(2, "0");
+    const year  = v.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+  return String(v);
 };
 
 export default function Graficos1() {
@@ -37,8 +50,8 @@ export default function Graficos1() {
   } = useReportData(params);
 
   // totales/métricas
-  const totalI   = byDate.length ? byDate.at(-1).ingresos : 0;
-  const totalE   = byDate.length ? byDate.at(-1).egresos  : 0;
+  const totalI   = byDate.reduce((acc, d) => acc + d.ingresos, 0);
+  const totalE   = byDate.reduce((acc, d) => acc + d.egresos, 0);
   const utilidad = totalI - totalE;
   const indice   = totalE > 0 ? utilidad / totalE : 0;
   const margen   = totalI > 0 ? (utilidad / totalI) * 100 : 0;
@@ -65,11 +78,11 @@ export default function Graficos1() {
   // pies
   const [groupBy, setGroupBy] = useState("categoria");
 
-  // barData con fechas formateadas
+  // barData con fechas crudas (sin formatear) para clave/orden
   const barData = useMemo(
     () =>
       byDate.map(d => ({
-        name: formatDDMMYYYY(d.name),
+        name: d.name,
         ingresos: d.ingresos,
         egresos: d.egresos
       })),
@@ -88,8 +101,9 @@ export default function Graficos1() {
       setParams({ from: desde, to: hasta });
     } else if (mode === "mensual" && mes && anio) {
       const mm = mes.padStart(2, "0");
+      const lastDay = new Date(Number(anio), Number(mes), 0).getDate();
       const from = `${anio}-${mm}-01`;
-      const to   = new Date(anio, +mes, 0).toISOString().slice(0,10);
+      const to   = `${anio}-${mm}-${String(lastDay).padStart(2, "0")}`;
       setParams({ from, to });
     } else {
       setParams({});
@@ -209,7 +223,7 @@ export default function Graficos1() {
       {/* BARRA ACUMULADA */}
       <section className={styles.barSection}>
         <h4>{t("ingresos_vs_egresos_acumulado")}</h4>
-        <BarComparativo data={barData} />
+        <BarComparativo data={barData} xTickFormatter={formatDDMMYYYY} />
       </section>
 
       {/* TOGGLE TORTAS */}
