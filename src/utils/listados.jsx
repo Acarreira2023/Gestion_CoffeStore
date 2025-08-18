@@ -1,11 +1,10 @@
 // src/utils/listado.jsx
 
 export const tiposIngreso = [
-  "INMUEBLE",
-  "VEHICULO",
-  "SUCURSALES",
+  "OPEX",
+  "VENTA",
   "INVERSIONES",
-  "NORMA - MASAJES",
+  "APORTE DE CAPITAL",
   "OTROS"
 ];
 export const inmuebles = [
