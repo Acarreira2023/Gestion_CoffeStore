@@ -18,9 +18,6 @@ export default function IngresoForm({ onBack }) {
   const [f, setF] = useState({
     fecha: "",
     tipo: "",
-    inmueble: "",
-    sucursal: "",
-    medio: "",
     categoria: "",
     cantidad: 1,
     numeroDoc: "",
@@ -36,9 +33,6 @@ export default function IngresoForm({ onBack }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { ...f };
-
-    if (data.tipo !== "INMUEBLE") data.inmueble = "";
-    if (data.tipo !== "SUCURSALES") data.sucursal = "";
 
     // Parsear fecha a medianoche local (UTC−3)
     const [year, month, day] = data.fecha.split("-").map(Number);
@@ -84,61 +78,6 @@ export default function IngresoForm({ onBack }) {
         >
           <option value="">{t("seleccionar_tipo")}</option>
           {tiposIngreso.map((opt) => (
-            <option key={opt} value={opt}>
-              {t(opt)}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {f.tipo === "INMUEBLE" && (
-        <div className={styles.field}>
-          <label htmlFor="inmueble">{t("inmueble")}</label>
-          <select
-            id="inmueble"
-            name="inmueble"
-            value={f.inmueble}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_inmueble")}</option>
-            {inmuebles.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {f.tipo === "SUCURSALES" && (
-        <div className={styles.field}>
-          <label htmlFor="sucursal">{t("sucursal")}</label>
-          <select
-            id="sucursal"
-            name="sucursal"
-            value={f.sucursal}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_sucursal")}</option>
-            {sucursales.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Medio de pago */}
-      <div className={styles.field}>
-        <label htmlFor="medio">{t("medio_pago")}</label>
-        <select
-          id="medio"
-          name="medio"
-          value={f.medio}
-          onChange={handleChange}
-        >
-          <option value="">{t("seleccionar_medio")}</option>
-          {mediosIngreso.map((opt) => (
             <option key={opt} value={opt}>
               {t(opt)}
             </option>

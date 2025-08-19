@@ -33,8 +33,4 @@ export const categoriasEgreso = [
   "SALARIOS",
   "SERVICIOS",
   "OTROS"
-];import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../../utils/listados";
-// o
-import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../utils/listados";import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../../utils/listados";
-// o
-import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../utils/listados";
+];

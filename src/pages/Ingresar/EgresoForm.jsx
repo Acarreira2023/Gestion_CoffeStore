@@ -18,9 +18,6 @@ export default function EgresoForm({ onBack }) {
   const [f, setF] = useState({
     fecha: "",
     tipo: "",
-    inmueble: "",
-    sucursal: "",
-    medioPago: "",
     categoria: "",
     cantidad: 1,
     numeroDoc: "",
@@ -37,9 +34,6 @@ export default function EgresoForm({ onBack }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { ...f };
-
-    if (data.tipo !== "INMUEBLE") data.inmueble = "";
-    if (data.tipo !== "SUCURSALES") data.sucursal = "";
 
     // Fecha a medianoche local
     const [year, month, day] = data.fecha.split("-").map(Number);
@@ -84,62 +78,6 @@ export default function EgresoForm({ onBack }) {
         >
           <option value="">{t("seleccionar_tipo")}</option>
           {tiposEgreso.map((opt) => (
-            <option key={opt} value={opt}>
-              {t(opt)}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Inmueble / Sucursal */}
-      {f.tipo === "INMUEBLE" && (
-        <div className={styles.field}>
-          <label htmlFor="inmueble">{t("inmueble")}</label>
-          <select
-            id="inmueble"
-            name="inmueble"
-            value={f.inmueble}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_inmueble")}</option>
-            {inmuebles.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      {f.tipo === "SUCURSALES" && (
-        <div className={styles.field}>
-          <label htmlFor="sucursal">{t("sucursal")}</label>
-          <select
-            id="sucursal"
-            name="sucursal"
-            value={f.sucursal}
-            onChange={handleChange}
-          >
-            <option value="">{t("seleccionar_sucursal")}</option>
-            {sucursales.map((opt) => (
-              <option key={opt} value={opt}>
-                {t(opt)}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Medio de pago */}
-      <div className={styles.field}>
-        <label htmlFor="medioPago">{t("medio_pago")}</label>
-        <select
-          id="medioPago"
-          name="medioPago"
-          value={f.medioPago}
-          onChange={handleChange}
-        >
-          <option value="">{t("seleccionar_medio")}</option>
-          {mediosEgreso.map((opt) => (
             <option key={opt} value={opt}>
               {t(opt)}
             </option>
