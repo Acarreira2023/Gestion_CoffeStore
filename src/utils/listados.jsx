@@ -7,58 +7,34 @@ export const tiposIngreso = [
   "APORTE DE CAPITAL",
   "OTROS"
 ];
-export const inmuebles = [
-  "DPTO CIUDAD DE LA PAZ",
-  "DPTO CORRIENTES",
-  "DPTO CONESA I",
-  "DPTO CONESA II"
-];
-export const sucursales = [
-  "PRANA",
-  "EQUILIBRIO",
-  "FOUR SEASONS",
-  "MASAJES EN DOMICILIO",
-  "MASAJES A DOMICILIO"
-];
-export const mediosIngreso = [
-  "EFECTIVO",
-  "CHEQUE",
-  "TARJETA DE CREDITO",
-  "TARJETA DE DEBITO",
-  "BILLETERA VIRTUAL",
-  "TRANSFERENCIA",
-  "ACREDITACION",
-  "OTROS"
-];
 export const categoriasIngreso = [
-  "SERVICIO",
-  "ALQUILER",
-  "INVERSIONES",
+  "MKT",
+  "OPERACIONES",
+  "LOGISTICO",
+  "COMEX",
+  "SALARIOS",
+  "SERVICIOS",
   "OTROS"
 ];
 
 export const tiposEgreso = [
-  "INMUEBLE",
-  "VEHICULO",
-  "SUCURSALES",
-  "JUBILACION",
-  "OTROS"
-];
-export const mediosEgreso = [
-  "EFECTIVO",
-  "CHEQUE",
-  "TARJETA DE CREDITO",
-  "TARJETA DE DEBITO",
-  "BILLETERA VIRTUAL",
-  "TRANSFERENCIA",
+  "OPEX",
+  "VENTA",
+  "INVERSIONES",
+  "APORTE DE CAPITAL",
+  "EGRESOS UTILIDADES",
   "OTROS"
 ];
 export const categoriasEgreso = [
-  "SERVICIO",
-  "SUELDOS",
-  "PRODUCTOS DE LIMPIEZA",
-  "PRODUCTOS DE MASAJE",
-  "VEHÍCULO",
-  "SEGUROS",
+  "MKT",
+  "OPERACIONES",
+  "LOGISTICO",
+  "COMEX",
+  "SALARIOS",
+  "SERVICIOS",
   "OTROS"
-];
+];import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../../utils/listados";
+// o
+import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../utils/listados";import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../../utils/listados";
+// o
+import { inmuebles, sucursales, mediosIngreso, mediosEgreso } from "../utils/listados";

@@ -2,42 +2,12 @@
 
 /**
  * Servicio para exportar Firestore → XLSX
- * Usa ExcelJS y aplica autofiltro.
+ * Usa SheetJS (xlsx) y aplica autofiltro en la hoja.
  */
 
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebaseService";
-import ExcelJS from "exceljs";
-
-/**
- * Genera un workbook con una hoja y exporta los datos como archivo XLSX.
- */
-async function exportToExcel({ nombreArchivo, nombreHoja, header, rows }) {
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet(nombreHoja);
-
-  worksheet.addRow(header);
-  rows.forEach(row => {
-    worksheet.addRow(header.map(h => row[h]));
-  });
-
-  worksheet.autoFilter = {
-    from: { row: 1, column: 1 },
-    to: { row: 1, column: header.length }
-  };
-
-  const buffer = await workbook.xlsx.writeBuffer();
-  const blob = new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-  });
-
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${nombreArchivo}_${Date.now()}.xlsx`;
-  a.click();
-  window.URL.revokeObjectURL(url);
-}
+import * as XLSX from "xlsx";
 
 /**
  * Exporta la colección "ingresos"
@@ -47,15 +17,14 @@ export async function exportIngresos() {
 
   const data = snap.docs.map(docSnap => {
     const d = docSnap.data();
-    const fecha = d.fecha?.toDate?.().toISOString().slice(0, 10) || "";
+    const fecha = d.fecha?.toDate
+      ? d.fecha.toDate().toISOString().slice(0, 10)
+      : "";
     return {
       Fecha:       fecha,
       Tipo:        d.tipo        || "",
-      Inmuebles:   d.inmuebles   || "",
-      Sucursales:  d.sucursales  || "",
-      Medio:       d.medio       || "",
       Categoría:   d.categoria   || "",
-      Cantidad:    d.cantidad    ?? "",
+      Cantidad:    d.cantidad  != null ? d.cantidad : "",
       "Nro. Doc":  d.nroDoc      || "",
       Descripción: d.descripcion || "",
       Total:       d.total       || 0
@@ -63,16 +32,26 @@ export async function exportIngresos() {
   });
 
   const header = [
-    "Fecha", "Tipo", "Inmuebles", "Sucursales", "Medio",
-    "Categoría", "Cantidad", "Nro. Doc", "Descripción", "Total"
+    "Fecha","Tipo","Categoría","Cantidad","Nro. Doc","Descripción","Total"
   ];
 
-  await exportToExcel({
-    nombreArchivo: "ingresos",
-    nombreHoja: "Ingresos",
+  // genera worksheet a partir de JSON
+  const ws = XLSX.utils.json_to_sheet(data, {
     header,
-    rows: data
+    skipHeader: false
   });
+
+  // define rango completo (A1 hasta última columna+número de filas)
+  const range = XLSX.utils.decode_range(ws["!ref"]);
+  // coloca autofiltro en la primera fila
+  ws["!autofilter"] = { ref: XLSX.utils.encode_range({
+    s: { r: 0, c: range.s.c },
+    e: { r: range.s.r, c: range.e.c }
+  })};
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Ingresos");
+  XLSX.writeFile(wb, `ingresos_${Date.now()}.xlsx`);
 }
 
 /**
@@ -83,13 +62,12 @@ export async function exportEgresos() {
 
   const data = snap.docs.map(docSnap => {
     const d = docSnap.data();
-    const fecha = d.fecha?.toDate?.().toISOString().slice(0, 10) || "";
+    const fecha = d.fecha?.toDate
+      ? d.fecha.toDate().toISOString().slice(0, 10)
+      : "";
     return {
       Fecha:        fecha,
       Tipo:         d.tipo         || "",
-      Inmuebles:    d.inmuebles    || "",
-      Sucursales:   d.sucursales   || "",
-      "Medio Pago": d.medioPago    || "",
       Categoría:    d.categoria    || "",
       "Nro. Doc":   d.nroDoc       || "",
       Descripción:  d.descripcion  || "",
@@ -99,14 +77,21 @@ export async function exportEgresos() {
   });
 
   const header = [
-    "Fecha", "Tipo", "Inmuebles", "Sucursales", "Medio Pago",
-    "Categoría", "Nro. Doc", "Descripción", "Proveedor", "Total"
+    "Fecha","Tipo","Categoría","Nro. Doc","Descripción","Proveedor","Total"
   ];
 
-  await exportToExcel({
-    nombreArchivo: "egresos",
-    nombreHoja: "Egresos",
+  const ws = XLSX.utils.json_to_sheet(data, {
     header,
-    rows: data
+    skipHeader: false
   });
+
+  const range = XLSX.utils.decode_range(ws["!ref"]);
+  ws["!autofilter"] = { ref: XLSX.utils.encode_range({
+    s: { r: 0, c: range.s.c },
+    e: { r: range.s.r, c: range.e.c }
+  })};
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Egresos");
+  XLSX.writeFile(wb, `egresos_${Date.now()}.xlsx`);
 }
