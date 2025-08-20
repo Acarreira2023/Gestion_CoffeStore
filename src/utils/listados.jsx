@@ -1,7 +1,6 @@
 // src/utils/listado.jsx
 
 export const tiposIngreso = [
-  "OPEX",
   "VENTA",
   "INVERSIONES",
   "APORTE DE CAPITAL",
@@ -19,9 +18,6 @@ export const categoriasIngreso = [
 
 export const tiposEgreso = [
   "OPEX",
-  "VENTA",
-  "INVERSIONES",
-  "APORTE DE CAPITAL",
   "EGRESOS UTILIDADES",
   "OTROS"
 ];
