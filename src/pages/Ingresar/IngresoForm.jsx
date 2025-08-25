@@ -6,9 +6,6 @@ import styles from "./IngresoForm.module.css";
 import { guardarIngreso } from "../../services/firebaseService";
 import {
   tiposIngreso,
-  sucursales,
-  inmuebles,
-  mediosIngreso,
   categoriasIngreso
 } from "../../utils/listados";
 import { useIdioma } from "../../context/IdiomaContext";
@@ -22,6 +19,7 @@ export default function IngresoForm({ onBack }) {
     cantidad: 1,
     numeroDoc: "",
     descripcion: "",
+    cliente: "",
     total: 0
   });
 
@@ -136,6 +134,18 @@ export default function IngresoForm({ onBack }) {
           id="descripcion"
           name="descripcion"
           value={f.descripcion}
+          onChange={handleChange}
+        />
+      </div>
+
+      {/* Cliente */}
+      <div className={styles.field}>
+        <label htmlFor="cliente">{t("cliente")}</label>
+        <input
+          type="text"
+          id="cliente"
+          name="cliente"
+          value={f.cliente}
           onChange={handleChange}
         />
       </div>
