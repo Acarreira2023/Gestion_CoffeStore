@@ -39,6 +39,7 @@ export default function Egreso() {
   // inline edit
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData]   = useState({
+    proyecto: "",
     categoria: "",
     tipo: "",
     proveedor: "",
@@ -49,23 +50,6 @@ export default function Egreso() {
   const currentYear = new Date().getFullYear();
   const years       = Array.from({ length: 6 }, (_, i) => currentYear - i);
 
-  /*// convierte "YYYY-MM-DD" a Timestamp (fecha sin hora)
-  const dateStrToTs = str => {
-    const [y, m, d] = str.split("-").map(Number);
-    // crea Date a medianoche local
-    const dt = new Date(y, m - 1, d, 0, 0, 0);
-    return Timestamp.fromDate(dt);
-  };
-
-  // normaliza raw Timestamp o string a Date solo día
-  const normalizeDate = raw => {
-    const dt = raw.toDate
-      ? raw.toDate()
-      : raw.seconds
-        ? new Date(raw.seconds * 1000)
-        : new Date(raw);
-    return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0);
-  };*/
 
   // convierte "YYYY-MM-DD" a Timestamp en UTC-3 sin corrimiento
   const dateStrToTsUTC3 = str => {
@@ -139,36 +123,6 @@ export default function Egreso() {
     return q;
   };
 
-  // carga datos al cambiar filtros
-  /*useEffect(() => {
-    async function load() {
-      setLoading(true);
-      setError(null);
-      try {
-        const snap = await getDocs(buildQuery());
-        const list = snap.docs.map(d => {
-          const data = d.data();
-          const day  = normalizeDate(data.fecha);
-          return {
-            id:        data.id || d.id,
-            fecha:     day.toLocaleDateString(),
-            categoria: data.categoria || "",
-            tipo:      data.tipo      || "",
-            proveedor: data.proveedor || "",
-            total:     data.total     || 0
-          };
-        });
-        setEgresos(list);
-        setSelEg(new Set());
-      } catch (err) {
-        console.error(err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, [filterParams]);*/
     useEffect(() => {
     async function load() {
       try {
@@ -187,6 +141,7 @@ export default function Egreso() {
           return {
             id:        data.id || docSnap.id,
             fecha:     `${dd}/${mm}/${yyyy}`,    // ← Aquí va la fecha formateada
+            proyecto:  data.proyecto || "",
             categoria: data.categoria || "",
             tipo:      data.tipo      || "",
             proveedor: data.proveedor || "",
@@ -251,6 +206,7 @@ export default function Egreso() {
   const startEdit  = row => {
     setEditingId(row.id);
     setEditData({
+      proyecto: row.proyecto,
       categoria: row.categoria,
       tipo:      row.tipo,
       proveedor: row.proveedor,
@@ -259,11 +215,12 @@ export default function Egreso() {
   };
   const cancelEdit = () => {
     setEditingId(null);
-    setEditData({ categoria: "", tipo: "", proveedor: "", total: "" });
+    setEditData({ proyecto: "", categoria: "", tipo: "", proveedor: "", total: "" });
   };
   const saveEdit   = async id => {
     const ref = doc(db, "egresos", id);
     await updateDoc(ref, {
+      proyecto:  editData.proyecto,
       categoria: editData.categoria,
       tipo:      editData.tipo,
       proveedor: editData.proveedor,
@@ -404,6 +361,7 @@ export default function Egreso() {
               />
             </th>
             <th>{t("fecha")}</th>
+            <th>{t("proyecto")}</th>
             <th>{t("categoria")}</th>
             <th>{t("tipo")}</th>
             <th>{t("proveedor")}</th>
@@ -422,6 +380,19 @@ export default function Egreso() {
                 />
               </td>
               <td>{r.fecha}</td>
+              <td>
+                {editingId === r.id ? (
+                  <input
+                    className={styles.editInput}
+                    value={editData.proyecto}
+                    onChange={e =>
+                      setEditData(d => ({ ...d, proyecto: e.target.value }))
+                    }
+                  />
+                ) : (
+                  r.proyecto
+                )}
+              </td>
               <td>
                 {editingId === r.id ? (
                   <input

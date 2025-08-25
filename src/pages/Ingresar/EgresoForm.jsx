@@ -17,6 +17,7 @@ export default function EgresoForm({ onBack }) {
   const { t } = useIdioma();
   const [f, setF] = useState({
     fecha: "",
+    proyecto: "",
     tipo: "",
     categoria: "",
     cantidad: 1,
@@ -63,6 +64,19 @@ export default function EgresoForm({ onBack }) {
           value={f.fecha}
           onChange={handleChange}
           required
+        />
+      </div>
+
+      {/* Proyecto */}
+      <div className={styles.field}>
+        <label htmlFor="proyecto">{t("proyecto")}</label>
+        <input
+          type="text"
+          id="proyecto"
+          name="proyecto"
+          value={f.proyecto}
+          onChange={handleChange}
+          placeholder={t("nombre_proyecto")}
         />
       </div>
 

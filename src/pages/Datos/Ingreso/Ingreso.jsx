@@ -109,6 +109,7 @@ export default function Ingreso() {
           return {
             id:        d.id,
             fecha:     date.toLocaleDateString(),
+            proyecto:  data.proyecto ?? "",
             categoria: data.categoria ?? "",
             tipo:      data.tipo ?? "",
             total:     data.total ?? 0
@@ -168,18 +169,21 @@ export default function Ingreso() {
   const startEdit = row => {
     setEditingId(row.id);
     setEditData({
+      proyecto:  row.proyecto,
       categoria: row.categoria,
       tipo:      row.tipo,
+      proveedor: row.proveedor,
       total:     row.total.toString()
     });
   };
   const cancelEdit = () => {
     setEditingId(null);
-    setEditData({ categoria: "", tipo: "", total: "" });
+    setEditData({ proyecto: "", categoria: "", tipo: "", proveedor: "", total: "" });
   };
   const saveEdit = async id => {
     const ref = doc(db, "ingresos", id);
     await updateDoc(ref, {
+      proyecto:  editData.proyecto,
       categoria: editData.categoria,
       tipo:      editData.tipo,
       total:     Number(editData.total)
@@ -304,6 +308,7 @@ export default function Ingreso() {
               />
             </th>
             <th>{t("fecha")}</th>
+            <th>{t("proyecto")}</th>
             <th>{t("categoria")}</th>
             <th>{t("tipo")}</th>
             <th>{t("total")}</th>
@@ -321,6 +326,19 @@ export default function Ingreso() {
                 />
               </td>
               <td>{row.fecha}</td>
+              <td>
+                {editingId === row.id ? (
+                  <input
+                    className={styles.editInput}
+                    value={editData.proyecto}
+                    onChange={e =>
+                      setEditData(prev => ({ ...prev, proyecto: e.target.value }))
+                    }
+                  />
+                ) : (
+                  row.proyecto
+                )}
+              </td>
               <td>
                 {editingId === row.id ? (
                   <input
