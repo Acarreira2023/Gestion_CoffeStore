@@ -27,7 +27,7 @@
 
 /* Pie chart específico */
 .pieChart {
-  flex: 1 1 280px;
+  flex: 1 1 320px;
   max-width: 65%;
   background: var(--bg-alt);
   border: 1px solid var(--fg);

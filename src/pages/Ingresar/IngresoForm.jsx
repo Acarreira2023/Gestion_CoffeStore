@@ -14,7 +14,7 @@ export default function IngresoForm({ onBack }) {
   const { t } = useIdioma();
   const [f, setF] = useState({
     fecha: "",
-    proyecto: "",
+    proyecto: "Proy-",
     tipo: "",
     categoria: "",
     cantidad: 1,
@@ -64,20 +64,25 @@ export default function IngresoForm({ onBack }) {
         />
       </div>
 
-      {/* Proyecto */}
+      {/* Proyecto con prefijo fijo */}
       <div className={styles.field}>
         <label htmlFor="proyecto">{t("proyecto")}</label>
-        <input
-          type="text"
-          id="proyecto"
-          name="proyecto"
-          value={f.proyecto}
-          onChange={handleChange}
-          placeholder={t("nombre_proyecto")}
-        />
+        <div className={styles.prefijoInput}>
+          <span className={styles.prefijo}>Proy-</span>
+          <input
+            type="text"
+            id="proyecto"
+            name="proyecto"
+            value={f.proyecto.replace(/^Proy-/, "")}
+            onChange={(e) =>
+              setF((prev) => ({ ...prev, proyecto: `Proy-${e.target.value}` }))
+            }
+            placeholder={t("nombre_proyecto")}
+            required
+          />
+        </div>
       </div>
 
-      {/* Resto de campos... */}
       {/* Tipo */}
       <div className={styles.field}>
         <label htmlFor="tipo">{t("tipo")}</label>

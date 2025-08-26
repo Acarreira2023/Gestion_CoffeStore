@@ -32,8 +32,8 @@ export default function PieChartComponent({ title, data }) {
             data={data}
             dataKey="value"
             nameKey="name"
-            innerRadius={50}
-            outerRadius={80}
+            innerRadius={40}
+            outerRadius={65}
             label={({ value }) => `$${value.toLocaleString("es-AR")}`}
           >
             {data.map((_, idx) => (
@@ -41,7 +41,7 @@ export default function PieChartComponent({ title, data }) {
             ))}
           </Pie>
           <Tooltip formatter={value => `$${value.toLocaleString("es-AR")}`} />
-          <Legend layout="vertical" align="right" />
+           <Legend layout="vertical" align="right" /> 
         </PieChart>
       </ResponsiveContainer>
     </div>

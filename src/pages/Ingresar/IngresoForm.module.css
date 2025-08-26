@@ -69,3 +69,32 @@
 .volver:hover {
   background: var(--hover-bg);
 }
+
+.prefijoInput {
+  display: flex;
+  align-items: center;
+  border: 1px solid #666; /* sin borde visible */
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.2); /* sombra de contorno suave */
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.prefijoInput:focus-within {
+  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.4); /* sombra azul al enfocar */
+}
+
+.prefijo {
+  font-weight: bold;
+  margin-right: 0.4rem;
+  color: #444;
+}
+
+.prefijoInput input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  background-color: transparent;
+}
