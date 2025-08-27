@@ -21,7 +21,7 @@ export function useReportData(params = {}) {
     const hoy = new Date();
     const firstOfMonth = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
 
-    let mode = "month";              // mes en curso
+    let mode = "month";
     let fecha, from, to;
 
     if (params.fecha) {
@@ -33,17 +33,14 @@ export function useReportData(params = {}) {
       to   = toDate(params.to);
     }
 
-    // helper valor numérico
     const getVal = it => Number(it.total ?? it.valor ?? 0);
 
-    // filtrar según modo
     let filtI = ingresos;
     let filtE = egresos;
 
     if (mode === "single") {
       filtI = ingresos.filter(i => esMismoDia(toDate(i.fecha), fecha));
       filtE = egresos.filter(e => esMismoDia(toDate(e.fecha), fecha));
-      // rango de un día para byDate
       from = fecha;
       to   = fecha;
     }
@@ -57,45 +54,64 @@ export function useReportData(params = {}) {
         return d && d >= from && d <= to;
       });
     }
-    else { // month
+    else {
       filtI = ingresos.filter(i => esMismoMes(toDate(i.fecha), hoy));
       filtE = egresos.filter(e => esMismoMes(toDate(e.fecha), hoy));
       from = firstOfMonth;
       to   = hoy;
     }
 
-    // construir acumulado diario
+    // Acumulado diario con relleno
     const raw = {};
     const addToRaw = (dObj, source) => {
       const d = toDate(source.fecha);
-      const key = d.toISOString().slice(0,10);
-      raw[key] = raw[key] || { ingresos:0, egresos:0 };
+      const key = d.toLocaleDateString("es-AR");
+      raw[key] = raw[key] || { ingresos: 0, egresos: 0 };
       raw[key][dObj] += getVal(source);
     };
     filtI.forEach(i => addToRaw("ingresos", i));
     filtE.forEach(e => addToRaw("egresos", e));
 
-    const days = Object.entries(raw)
-      .map(([name, vals]) => ({ name, ...vals }))
-      .sort((a,b) => new Date(a.name) - new Date(b.name));
+    // Generar todos los días del rango
+    const allDays = [];
+    let d = new Date(from);
+    d.setHours(0,0,0,0);
+    const end = new Date(to);
+    end.setHours(0,0,0,0);
+    while (d <= end) {
+      allDays.push(d.toLocaleDateString("es-AR"));
+      d = addDays(d, 1);
+    }
 
-    let cumI = 0, cumE = 0;
-    const byDate = days.map(({ name, ingresos, egresos }) => {
-      cumI += ingresos;
-      cumE += egresos;
-      return { name, ingresos: cumI, egresos: cumE };
+    // Completar días faltantes con ceros
+    const days = allDays.map(name => ({
+      name,
+      ingresos: raw[name]?.ingresos || 0,
+      egresos: raw[name]?.egresos || 0
+    }));
+
+    // Ordenar por fecha
+    days.sort((a, b) => {
+      const da = new Date(a.name.split("/").reverse().join("-"));
+      const db = new Date(b.name.split("/").reverse().join("-"));
+      return da - db;
     });
+
+    const byDate = days.map(({ name, ingresos, egresos }) => ({
+      name,
+      ingresos,
+      egresos
+    }));
 
     // función para armar tortas
     const mkPie = (arr, keys, field) =>
-      keys
-        .map(k => ({
-          name:  k,
-          value: arr
-            .filter(item => item[field] === k)
-            .reduce((s, it) => s + getVal(it), 0)
-        }))
-        .filter(x => x.value > 0);
+      keys.map(k => ({
+        name: k,
+        value: arr
+          .filter(item => (item[field] || "").toUpperCase() === k.toUpperCase())
+          .reduce((s, it) => s + getVal(it), 0)
+      }))
+      .filter(x => x.value > 0);
 
     const ingresosByTipo      = mkPie(filtI, tiposIngreso,      "tipo");
     const ingresosByCategoria = mkPie(filtI, categoriasIngreso, "categoria");
