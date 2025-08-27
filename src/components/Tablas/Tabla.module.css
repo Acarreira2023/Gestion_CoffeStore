@@ -46,7 +46,7 @@
 
 .edit:hover,
 .delete:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 /* Responsive styles */
 @media (max-width: 768px) {
