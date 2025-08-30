@@ -65,3 +65,7 @@
   height: 24px;
   object-fit: contain;
 }
+
+a {
+  text-decoration: none;
+}
